@@ -98,12 +98,5 @@ create view vw_departamento as select * from tb_departamento;
 
 
 
-## Produto cartesiano.
-select * from tb_funcionario, tb_cargo;
 
-## Inner join. (Junção)
-select * from tb_funcionario f inner join tb_cargo c on f.cod_cargo = c.id;
 
-select nome_func.nome, nome_cargo.nome
-from tb_funcionario nome_func
-    inner join tb_cargo nome_cargo on nome_func.cod_cargo = nome_cargo.id;

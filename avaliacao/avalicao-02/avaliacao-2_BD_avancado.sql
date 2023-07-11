@@ -33,7 +33,7 @@ call sp_listar_atividades(null);
 
 -- Crie a função func_to_Date que irá receber como dado de entrada um conjunto de caracteres correspondente a uma data no padrão brasileiro  e irá retornar uma data padrão (date).  Ex. entrada: 12/05/2021 Saída: 2021-05-12
 DELIMITER $
-create function func_to_Date(var_data varchar(10))
+create function func_to_Date(var_data date)
     returns date
     BEGIN
         return str_to_date(var_data, '%d/%m/%Y');
@@ -75,8 +75,11 @@ create function func_nro_mes(var_mes int)
         else
             return 'Número inválido';
         end if;
-    END $$
+    END $
 DELIMITER ;
+
+## Exemplo de chamada da função
+select func_nro_mes(1);
 
 -- Crie o trigger tr_valida_data que antes da inserção de uma atividade verifique se a data de inicio das inscrições não é maior que a data de término das inscrições. Se for, gerar um erro.
 DELIMITER $
@@ -101,4 +104,20 @@ create trigger tr_valida_idade
         end if;
     END $$
 DELIMITER ;
+
+## Crie um trigger tr_valida_idade que antes da inserção na tabela usuario verifique se o usuário que está sendo cadastrado atende a restrição de ter idade mínima de 12 anos.  Caso seja menor de 12 anos gerar um erro.
+DELIMITER $
+create trigger tr_valida_idade
+    before insert on Usuario
+    for each row
+    BEGIN
+        if (year(curdate()) - year(new.dt_nasc)) < 12 then
+            signal sqlstate '45000' set message_text = 'Usuário não pode ter menos de 12 anos';
+        end if;
+    END $$
+DELIMITER ;
+
+## Exemplo de chamada do trigger
+
+
 
