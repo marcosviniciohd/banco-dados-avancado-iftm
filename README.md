@@ -1,1 +1,1 @@
-# banco-dados-avancado-iftm
+# Disciplina sobre Banco de Dados Avançado.
