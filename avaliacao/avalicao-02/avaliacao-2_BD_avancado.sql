@@ -118,6 +118,9 @@ create trigger tr_valida_idade
 DELIMITER ;
 
 ## Exemplo de chamada do trigger
+insert into Usuario (cpf, dt_nasc) values ('12345678901', '2013-01-01');
+
+
 
 
 
